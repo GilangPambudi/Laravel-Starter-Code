@@ -10,6 +10,9 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PenjualanDetailController;
 
+$router->pattern('id', '[0-9]+');
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +24,7 @@ use App\Http\Controllers\PenjualanDetailController;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index']);  
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::group(['prefix' => 'level'], function () {
     //Ajax route
@@ -84,10 +87,21 @@ Route::group(['prefix' => 'kategori'], function () {
     Route::delete('/{id}', [KategoriController::class, 'destroy']);
 });
 
-Route::get('/barang/import', [BarangController::class, 'import']);
-Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']);
+Route::get('/barang/export_excel', [BarangController::class,'export_excel']);
+Route::get('/barang/export_pdf', [BarangController::class,'export_pdf']);
 
 Route::group(['prefix' => 'barang'], function () {
+    //Ajax Route
+    Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
+    Route::get('/create_ajax', [BarangController::class, 'create_ajax']);
+    Route::post('/barang_ajax', [BarangController::class, 'store_ajax']);
+    Route::get('/import', [BarangController::class, 'import']);
+    Route::post('/import_ajax', [BarangController::class, 'import_process']);
+    Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
+ 
     Route::get('/', [BarangController::class, 'index']);
     Route::post('/list', [BarangController::class, 'list']);
     Route::get('/create', [BarangController::class, 'create']);

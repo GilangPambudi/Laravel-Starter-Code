@@ -52,6 +52,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/{id}/show_ajax', [UserController::class, 'show_ajax']);
     Route::get('/create_ajax', [UserController::class, 'create_ajax']);
     Route::post('/user_ajax', [UserController::class, 'store_ajax']);
+    Route::get('/import', [UserController::class, 'import']);
+    Route::post('/import_ajax', [UserController::class, 'import_process']);
+    Route::get('/export_excel', [UserController::class, 'export_excel']);
     Route::get('/{id}/edit_ajax', [UserController::class, 'edit_ajax']);
     Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
@@ -87,9 +90,6 @@ Route::group(['prefix' => 'kategori'], function () {
     Route::delete('/{id}', [KategoriController::class, 'destroy']);
 });
 
-Route::get('/barang/export_excel', [BarangController::class,'export_excel']);
-Route::get('/barang/export_pdf', [BarangController::class,'export_pdf']);
-
 Route::group(['prefix' => 'barang'], function () {
     //Ajax Route
     Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
@@ -97,11 +97,13 @@ Route::group(['prefix' => 'barang'], function () {
     Route::post('/barang_ajax', [BarangController::class, 'store_ajax']);
     Route::get('/import', [BarangController::class, 'import']);
     Route::post('/import_ajax', [BarangController::class, 'import_process']);
+    Route::get('/export_excel', [BarangController::class, 'export_excel']);
+    Route::get('/export_pdf', [BarangController::class, 'export_pdf']);
     Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
     Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
- 
+
     Route::get('/', [BarangController::class, 'index']);
     Route::post('/list', [BarangController::class, 'list']);
     Route::get('/create', [BarangController::class, 'create']);
